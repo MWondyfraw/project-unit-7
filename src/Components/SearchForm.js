@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-//import {withRouter} from 'react-router-dom'
+// import reactRouterDom from "react-router-dom";
+import {withRouter} from 'react-router-dom'
 
 class SearchForm extends Component {
+  input=React.createRef();
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSearch(this.state.value);
-    this.props.history.push(`/search/${this.state.value}`);
+    let value = this.input.current.value;
+    console.log(value);
+    this.props.onSearch(value);
+    this.props.history.push(`/${value}`);
     e.currentTarget.reset();
   };
 
@@ -17,7 +21,7 @@ class SearchForm extends Component {
           name="search"
           placeholder="Search"
           required
-          onChange={this.handle}
+          ref={this.input}
         />
         <button type="submit" className="search-button">
           <svg
@@ -36,4 +40,4 @@ class SearchForm extends Component {
   }
 }
 
-export default SearchForm;
+export default withRouter(SearchForm);
