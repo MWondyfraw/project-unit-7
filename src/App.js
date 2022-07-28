@@ -17,6 +17,9 @@ class App extends Component {
     let query = "cats";
     this.searchFunction(query);
   }
+  componentDidUpdate(x,prevState) {
+    //console.log(prevState.images[0]);
+  }
   
   searchFunction(query) {
     axios({
