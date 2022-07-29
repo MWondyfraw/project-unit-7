@@ -3,8 +3,20 @@ import React, { Component } from "react";
 // import apiKey from "../config";
 import NotFound from "./NotFound";
 import Photo from "./Photo";
+import { withRouter } from "react-router-dom";
 
 class PhotoContainer extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.query) {
+      
+    if (this.props.match.params.query !== prevProps.match.params.query) {
+      this.props.onSearch(this.props.match.params.query)
+    }  
+  }
+    // console.log(prevProps.match.params.query);
+    // console.log(this.props.match.params.query);
+  }
+
   render() {
     let photos;
     let images = this.props.images;
@@ -32,4 +44,4 @@ class PhotoContainer extends Component {
   }
 }
 
-export default PhotoContainer;
+export default withRouter(PhotoContainer);

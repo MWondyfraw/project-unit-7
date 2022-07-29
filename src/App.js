@@ -17,11 +17,8 @@ class App extends Component {
     let query = "cats";
     this.searchFunction(query);
   }
-  componentDidUpdate(x,prevState) {
-    //console.log(prevState.images[0]);
-  }
-  
-  searchFunction(query) {
+
+  searchFunction(query = "cats") {
     axios({
       method: "get",
       url: `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&user_id=&tags=${query}&per_page=24&format=json&nojsoncallback=1`,
@@ -43,11 +40,21 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={() => <PhotoContainer images={this.state.images} />}
+            render={() => (
+              <PhotoContainer
+                images={this.state.images}
+                onSearch={(query) => this.searchFunction(query)}
+              />
+            )}
           />
           <Route
             path="/:query"
-            render={() => <PhotoContainer images={this.state.images} />}
+            render={() => (
+              <PhotoContainer
+                images={this.state.images}
+                onSearch={(query) => this.searchFunction(query)}
+              />
+            )}
           />
           {/* <Route exact path="/" component={PhotoContainer} /> */}
           {/* <Route path="/:query" component={PhotoContainer} /> */}
